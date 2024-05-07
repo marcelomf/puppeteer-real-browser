@@ -36,7 +36,7 @@
     "cli-color": "^2.0.3",
     "puppeteer": "^22.8.0",
     "puppeteer-afp": "",
-    "puppeteer-extra": "file:/Users/marcelo/Projetos/puppeteer-extra",
+    "puppeteer-extra": "*",
     "xvfb": "^0.4.0"
   },
   "repository": {
