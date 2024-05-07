@@ -17,6 +17,8 @@ async function handleNewPage({ page, config = {} }) {
 }
 
 export const connect = ({
+    product = "chrome",
+    protocol = "Classic",
     args = [],
     headless = 'auto',
     customConfig = {},
@@ -58,6 +60,7 @@ export const connect = ({
         })
 
         const browser = await puppeteer.connect({
+            args: args,
             product: product,
             protocol: protocol,
             targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
