@@ -45,8 +45,7 @@ export const connect = (argsConnect) => {
         const browser = await puppeteer.connect({
             ...argsConnect,
             targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
-            browserWSEndpoint: chromeSession.browserWSEndpoint,
-            ...connectOption
+            browserWSEndpoint: chromeSession.browserWSEndpoint
         });
 
         var page = await browser.pages()
