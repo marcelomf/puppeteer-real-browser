@@ -16,19 +16,7 @@ async function handleNewPage({ page, config = {} }) {
     return page
 }
 
-export const connect = ({
-    product = "chrome",
-    protocol = "Classic",
-    args = [],
-    headless = 'auto',
-    customConfig = {},
-    proxy = {},
-    skipTarget = [],
-    fingerprint = false,
-    turnstile = false,
-    connectOption = {},
-    fpconfig = {}
-}) => {
+export const connect = (argsConnect) => {
     return new Promise(async (resolve, reject) => {
         var global_target_status = false
 
@@ -52,17 +40,10 @@ export const connect = ({
         }
 
 
-        const { chromeSession, cdpSession, chrome, xvfbsession } = await startSession({
-            args: args,
-            headless: headless,
-            customConfig: customConfig,
-            proxy: proxy
-        })
+        const { chromeSession, cdpSession, chrome, xvfbsession } = await startSession(argsConnect)
 
         const browser = await puppeteer.connect({
-            args: args,
-            product: product,
-            protocol: protocol,
+            ...argsConnect,
             targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
             browserWSEndpoint: chromeSession.browserWSEndpoint,
             ...connectOption
