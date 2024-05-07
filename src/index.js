@@ -165,6 +165,7 @@ export const connect = ({
         });
 
         resolve({
+            puppeteerExtra: puppeteer,
             browser: browser,
             page: page,
             xvfbsession: xvfbsession,
