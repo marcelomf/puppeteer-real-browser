@@ -65,7 +65,7 @@ export const connect = ({
             product: product,
             protocol: protocol,
             targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
-            browserWSEndpoint: chromeSession.browserWSEndpoint,
+            //browserWSEndpoint: chromeSession.browserWSEndpoint,
             ...connectOption
         });
 
