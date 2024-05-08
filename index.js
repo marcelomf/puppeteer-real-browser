@@ -1,12 +1,9 @@
-
-
-
-import { startSession, closeSession } from './module/chromium.js'
-//import puppeteer from 'puppeteer';
-import puppeteer from 'puppeteer-extra';
-//const puppeteer = new PuppeteerExtra();
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-const stealth = StealthPlugin();
+let stealth = StealthPlugin();
+//import puppeteer from 'puppeteer';
+import { addExtra } from 'puppeteer-extra'
+let puppeteer = addExtra(require("puppeteer"))
+import { startSession, closeSession } from './module/chromium.js'
 import { notice, sleep } from './module/general.js'
 import { checkStat } from './module/turnstile.js'
 import { protectPage, protectedBrowser } from 'puppeteer-afp'
