@@ -50,7 +50,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 headless = slugify(process.platform).includes('linux') ? true : false
             }
 
-            const browserFlags = args; //['--remote-debugging-port '+PORT_DEBUG].concat(args);
+            const browserFlags = ['--remote-debugging-port '+PORT_DEBUG].concat(args);
 
             if (headless === true) browserFlags.push('-headless');
 
@@ -84,8 +84,9 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 args: browserFlags,
                 ...customConfig
             });
+            //PORT_DEBUG = browser.wsEndpoint().port;
 
-            var cdpSession = await CDP({ port: browser.wsEndpoint().port });
+            var cdpSession = await CDP({ port: PORT_DEBUG });
             const { Network, Page, Runtime, DOM } = cdpSession;
             await Promise.all([
                 Page.enable(),
@@ -95,7 +96,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 DOM.enable()
             ]);
 
-            var session = await axios.get('http://localhost:' + chrome.port + '/json/version')
+            var session = await axios.get('http://localhost:' + PORT_DEBUG + '/json/version')
                 .then(response => {
                     response = response.data
                     return {
