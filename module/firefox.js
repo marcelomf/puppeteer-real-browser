@@ -5,7 +5,7 @@ import Xvfb from 'xvfb';
 import { notice, slugify } from './general.js'
 import firefoxPath from "firefox-location";
 
-//const PORT_DEBUG = 9222;
+const PORT_DEBUG = 9222;
 let browser;
 
 export const closeSession = async ({ xvfbsession, cdpSession, browser }) => {
@@ -79,7 +79,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             console.log("VAI FIREFOX")
 
             browser = await launch({
-                dumpio: true,
+                //dumpio: true,
                 product: "firefox",
                 protocol: protocol,
                 executablePath: browserPath,
@@ -87,10 +87,6 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 args: browserFlags,
                 ...customConfig
             });
-
-            console.log("VEIO FIREFOX")
-            
-            PORT_DEBUG = browser.wsEndpoint().port;
 
             console.log("VEIO FIREFOX PORT", PORT_DEBUG)
 
