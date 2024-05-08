@@ -97,7 +97,7 @@ export const connect = ({
             product: product,
             protocol: protocol,
             targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
-            browserWSEndpoint: (protocol == "cdp") ? session.browserWSEndpoint : `ws://127.0.0.1:${port}`,
+            browserWSEndpoint: session.browserWSEndpoint,
             ...connectOption
         });
         console.log("AQUI 1");
