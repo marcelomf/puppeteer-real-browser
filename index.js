@@ -84,19 +84,20 @@ export const connect = ({
         let cdpSession = resultBrowser.cdpSession;
         let browser = resultBrowser.browser;
         let xvfbsession = resultBrowser.xvfbsession;
+        let port = resultBrowser.port;
 
         const browserPptr = await puppeteerExtra.connect({
             args: args,
             product: product,
             protocol: protocol,
             targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
-            browserWSEndpoint: session.browserWSEndpoint,
+            browserWSEndpoint: (protocol == "cdp") ? session.browserWSEndpoint : `ws://127.0.0.1:${port}`,
             ...connectOption
         });
 
-        var page = await browserPptr.pages()
-
-        page = page[0]
+        await browserPptr.newPage();
+        var page = await browserPptr.pages();
+        page = page[0];
 
         setTarget({ status: true });
 
@@ -131,7 +132,7 @@ export const connect = ({
             autoSolve({ page: page, browser: browserPptr })
         }
 
-        await page.setUserAgent(session.agent);
+        await page.setUserAgent(session.agent || session.userAgent);
 
         await page.setViewport({
             width: 1920,
@@ -170,11 +171,6 @@ export const connect = ({
                 // console.log(err.message);
             }
 
-
-
-
-
-
             if (newPage && fingerprint === true) {
                 try {
                     handleNewPage({ page: newPage, config: fpconfig });
@@ -187,6 +183,7 @@ export const connect = ({
         });
 
         resolve({
+            port: port,
             puppeteerExtra: puppeteer,
             browser: browserPptr,
             page: page,

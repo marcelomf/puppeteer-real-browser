@@ -99,6 +99,7 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
                     throw new Error(err.message)
                 })
             return resolve({
+                port: chrome.port,
                 session: chromeSession,
                 cdpSession: cdpSession,
                 browser: chrome,

@@ -76,8 +76,6 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             // extraPrefsFirefox?: Record<string, unknown>;
             //* {@link https://searchfox.org/mozilla-release/source/modules/libpref/init/all.js | Additional preferences } that can be passed when launching with Firefox.
 
-            console.log("VAI FIREFOX")
-
             browser = await launch({
                 //dumpio: true,
                 //debuggingPort: PORT_DEBUG,
@@ -92,24 +90,28 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             let wsString = browser.wsEndpoint();
             PORT_DEBUG = wsString.split(":")[2].split("/")[0];
 
-            console.log("VEIO FIREFOX PORT", PORT_DEBUG)
-
-            var cdpSession = await CDP({ port: PORT_DEBUG });
-            const { Network, Page, Runtime, DOM } = cdpSession;
-            await Promise.all([
-                Page.enable(),
-                Page.setLifecycleEventsEnabled({ enabled: true }),
-                Runtime.enable(),
-                Network.enable(),
-                DOM.enable()
-            ]);
-
-            console.log("VAI AAXIOS")
-
-            var session = await axios.get('http://127.0.0.1:' + PORT_DEBUG + '/json/version')
+            var cdpSession;
+            let Network;
+            let Page;
+            let Runtime;
+            let DOM;
+            let session;
+            if(protocol == "cdp") {
+                cdpSession = await CDP({ port: PORT_DEBUG });
+                Network = cdpSession.Network;
+                Page = cdpSession.Page;
+                Runtime = cdpSession.Runtime;
+                DOM = cdpSession.DOM;
+                await Promise.all([
+                    Page.enable(),
+                    Page.setLifecycleEventsEnabled({ enabled: true }),
+                    Runtime.enable(),
+                    Network.enable(),
+                    DOM.enable()
+                ]);
+                session = await axios.get('http://127.0.0.1:' + PORT_DEBUG + '/json/version')
                 .then(response => {
                     response = response.data
-                    console.log(response.data);
                     return {
                         browserWSEndpoint: response.webSocketDebuggerUrl,
                         agent: response['User-Agent']
@@ -118,8 +120,10 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 .catch(err => {
                     throw new Error(err.message)
                 })
-                console.log("VEIO AXIOS");
+            }
+
             return resolve({
+                port: PORT_DEBUG,
                 session: session,
                 cdpSession: cdpSession,
                 browser: browser,
