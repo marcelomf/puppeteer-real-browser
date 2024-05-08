@@ -88,12 +88,8 @@ export const connect = ({
 
         console.log("AQUI 0");
 
-        console.log(protocol);
-        console.log(session);
-        console.log(port);
-
-        const browserPptr = await puppeteerExtra.connect({
-            browser: browser,
+        let browserPptr = await puppeteerExtra.connect({
+            browser: (product == "firefox") ? browser : null,
             args: args,
             product: product,
             protocol: protocol,
@@ -101,15 +97,18 @@ export const connect = ({
             browserWSEndpoint: session.browserWSEndpoint,
             ...connectOption
         });
-        console.log("AQUI 1");
 
-        //await browserPptr.newPage();
+        console.log("AQUI 1");
+    
+        await browserPptr.newPage();
+        console.log("AQUI 2");
         var pages = await browserPptr.pages();
         var page = pages[0];
 
-        console.log("AQUI 2");
-
+        console.log("AQUI 3");
         setTarget({ status: true });
+
+        console.log("AQUI 4");
 
         if (proxy && proxy.username && proxy.username.length > 0) {
             await page.authenticate({ username: proxy.username, password: proxy.password });
@@ -133,7 +132,6 @@ export const connect = ({
             })
         }
 
-
         if (fingerprint === true) {
             handleNewPage({ page: page, config: fpconfig });
         }
@@ -142,11 +140,7 @@ export const connect = ({
             autoSolve({ page: page, browser: browserPptr })
         }
 
-        console.log("AQUI 3");
-
         await page.setUserAgent(session.agent || session.userAgent);
-
-        console.log("AQUI 4");
 
         await page.setViewport({
             width: 1920,
