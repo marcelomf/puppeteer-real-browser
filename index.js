@@ -7,10 +7,6 @@ import puppeteer from 'puppeteer-extra';
 //const puppeteer = new PuppeteerExtra();
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 const stealth = StealthPlugin();
-stealth.enabledEvasions.delete("chrome.runtime");
-stealth.enabledEvasions.delete("iframe.contentWindow");
-puppeteer.use(stealth);
-
 import { notice, sleep } from './module/general.js'
 import { checkStat } from './module/turnstile.js'
 import { protectPage, protectedBrowser } from 'puppeteer-afp'
@@ -72,6 +68,10 @@ export const connect = ({
             customConfig: customConfig,
             proxy: proxy
         })
+
+        stealth.enabledEvasions.delete("chrome.runtime");
+        stealth.enabledEvasions.delete("iframe.contentWindow");
+        puppeteer.use(stealth);
 
         const browser = await puppeteer.connect({
             args: args,
