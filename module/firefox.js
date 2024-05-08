@@ -3,6 +3,7 @@ import CDP from 'chrome-remote-interface';
 import axios from 'axios'
 import Xvfb from 'xvfb';
 import { notice, slugify } from './general.js'
+import * as firefoxPath from "firefox-location";
 
 const PORT_DEBUG = 9222;
 let browser;
@@ -31,7 +32,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
     return new Promise(async (resolve, reject) => {
         try {
             var xvfbsession = null
-            var browserPath = customConfig.executablePath || customConfig.browsePath || browser.path;
+            var browserPath = customConfig.executablePath || customConfig.browsePath || firefoxPath;
 
             if (slugify(process.platform).includes('linux') && headless === false) {
                 notice({
