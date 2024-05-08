@@ -3,6 +3,7 @@
 
 import { startSession, closeSession } from './module/chromium.js'
 import { PuppeteerExtra } from 'puppeteer-extra';
+//import puppeteer from 'puppeteer';
 const puppeteer = new PuppeteerExtra();
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 const stealth = StealthPlugin();
@@ -14,7 +15,7 @@ import { notice, sleep } from './module/general.js'
 import { checkStat } from './module/turnstile.js'
 import { protectPage, protectedBrowser } from 'puppeteer-afp'
 import { puppeteerRealBrowser } from './module/old.js'
-import puppeteer from 'puppeteer';
+
 export { puppeteerRealBrowser };
 
 
