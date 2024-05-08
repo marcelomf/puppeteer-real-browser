@@ -50,7 +50,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 headless = slugify(process.platform).includes('linux') ? true : false
             }
 
-            const browserFlags = ['--remote-debugging-port 0'].concat(args);
+            const browserFlags = ['--remote-debugging-port '+PORT_DEBUG].concat(args);
 
             if (headless === true) browserFlags.push('-headless');
 
