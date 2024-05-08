@@ -2,7 +2,8 @@
 
 
 import { startSession, closeSession } from './module/chromium.js'
-import puppeteer from 'puppeteer-extra';
+import { PuppeteerExtra } from 'puppeteer-extra';
+const puppeteer = new PuppeteerExtra();
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 const stealth = StealthPlugin();
 stealth.enabledEvasions.delete("chrome.runtime");
@@ -13,6 +14,7 @@ import { notice, sleep } from './module/general.js'
 import { checkStat } from './module/turnstile.js'
 import { protectPage, protectedBrowser } from 'puppeteer-afp'
 import { puppeteerRealBrowser } from './module/old.js'
+import puppeteer from 'puppeteer';
 export { puppeteerRealBrowser };
 
 
