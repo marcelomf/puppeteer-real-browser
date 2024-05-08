@@ -80,6 +80,8 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
 
             browser = await launch({
                 //dumpio: true,
+                debuggingPort: PORT_DEBUG,
+                devtools: true,
                 product: "firefox",
                 protocol: protocol,
                 executablePath: browserPath,
