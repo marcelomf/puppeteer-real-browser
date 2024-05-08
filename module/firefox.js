@@ -1,9 +1,11 @@
-import { launch } from 'chrome-launcher';
-import chromium from '@sparticuz/chromium'
+import { launch } from 'puppeteer';
 import CDP from 'chrome-remote-interface';
 import axios from 'axios'
 import Xvfb from 'xvfb';
 import { notice, slugify } from './general.js'
+
+const PORT_DEBUG = 9222;
+let browser;
 
 export const closeSession = async ({ xvfbsession, cdpSession, browser }) => {
     if (xvfbsession) {
@@ -25,11 +27,11 @@ export const closeSession = async ({ xvfbsession, cdpSession, browser }) => {
 }
 
 
-export const startSession = ({protocol = "cdp", args = [], headless = 'auto', customConfig = {}, proxy = {} }) => {
+export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', customConfig = {}, proxy = {} }) => {
     return new Promise(async (resolve, reject) => {
         try {
             var xvfbsession = null
-            var chromePath = customConfig.executablePath || customConfig.chromePath || chromium.path;
+            var browserPath = customConfig.executablePath || customConfig.browsePath || browser.path;
 
             if (slugify(process.platform).includes('linux') && headless === false) {
                 notice({
@@ -47,10 +49,10 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
                 headless = slugify(process.platform).includes('linux') ? true : false
             }
 
-            const chromeFlags = ['--no-sandbox','--disable-setuid-sandbox','--disable-blink-features=AutomationControlled'].concat(args);
+            const browserFlags = ['--remote-debugging-port '+PORT_DEBUG].concat(args);
 
             if (headless === true) {
-                slugify(process.platform).includes('win') ? chromeFlags.push('--headless=new') : ''
+                slugify(process.platform).includes('win') ? browserFlags.push('--headless=new') : ''
             }
 
             if (proxy && proxy.host && proxy.host.length > 0) {
@@ -72,12 +74,18 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
                 }
             }
 
-            var chrome = await launch({
-                chromePath,
-                chromeFlags,
+            // extraPrefsFirefox?: Record<string, unknown>;
+            //* {@link https://searchfox.org/mozilla-release/source/modules/libpref/init/all.js | Additional preferences } that can be passed when launching with Firefox.
+
+            var browser = await launch({
+                product: "firefox",
+                protocol: protocol,
+                executablePath: browserPath,
+                args: browserFlags,
                 ...customConfig
             });
-            var cdpSession = await CDP({ port: chrome.port });
+
+            var cdpSession = await CDP({ port: PORT_DEBUG });
             const { Network, Page, Runtime, DOM } = cdpSession;
             await Promise.all([
                 Page.enable(),
@@ -87,7 +95,7 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
                 DOM.enable()
             ]);
 
-            var chromeSession = await axios.get('http://localhost:' + chrome.port + '/json/version')
+            var session = await axios.get('http://localhost:' + chrome.port + '/json/version')
                 .then(response => {
                     response = response.data
                     return {
@@ -99,9 +107,9 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
                     throw new Error(err.message)
                 })
             return resolve({
-                session: chromeSession,
+                session: session,
                 cdpSession: cdpSession,
-                browser: chrome,
+                browser: browser,
                 xvfbsession: xvfbsession
             })
 

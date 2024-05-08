@@ -6,7 +6,8 @@ let puppeteerExtra = addExtra(puppeteer);
 stealth.enabledEvasions.delete("chrome.runtime");
 stealth.enabledEvasions.delete("iframe.contentWindow");
 puppeteerExtra.use(stealth);
-import { startSession, closeSession } from './module/chromium.js'
+import chromium from './module/chromium.js'
+import firefox from './module/firefox.js'
 import { notice, sleep } from './module/general.js'
 import { checkStat } from './module/turnstile.js'
 import { protectPage, protectedBrowser } from 'puppeteer-afp'
@@ -26,7 +27,7 @@ async function handleNewPage({ page, config = {} }) {
 
 export const connect = ({
     product = "chrome",
-    protocol = "Classic",
+    protocol = "cdp",
     args = [],
     headless = 'auto',
     customConfig = {},
@@ -59,39 +60,51 @@ export const connect = ({
             global_target_status = status
         }
 
+        
+        let resultBrowser;
+        if(product == "firefox") {
+            resultBrowser = await firefox.startSession({
+                args: args,
+                protocol: protocol,
+                headless: headless,
+                customConfig: customConfig,
+                proxy: proxy
+            })
+        } else {
+            resultBrowser = await chromium.startSession({
+                args: args,
+                protocol: protocol,
+                headless: headless,
+                customConfig: customConfig,
+                proxy: proxy
+            })
+        }
 
-        const { chromeSession, cdpSession, chrome, xvfbsession } = await startSession({
-            args: args,
-            product: product,
-            protocol: protocol,
-            headless: headless,
-            customConfig: customConfig,
-            proxy: proxy
-        })
+        let session = resultBrowser.session;
+        let cdpSession = resultBrowser.cdpSession;
+        let browser = resultBrowser.browser;
+        let xvfbsession = resultBrowser.xvfbsession;
 
-        const browser = await puppeteerExtra.connect({
+        const browserPptr = await puppeteerExtra.connect({
             args: args,
             product: product,
             protocol: protocol,
             targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
-            browserWSEndpoint: chromeSession.browserWSEndpoint,
+            browserWSEndpoint: session.browserWSEndpoint,
             ...connectOption
         });
 
-        var page = await browser.pages()
+        var page = await browserPptr.pages()
 
         page = page[0]
 
-        setTarget({ status: true })
-
-
+        setTarget({ status: true });
 
         if (proxy && proxy.username && proxy.username.length > 0) {
             await page.authenticate({ username: proxy.username, password: proxy.password });
         }
 
         var solve_status = true
-
 
         const setSolveStatus = ({ status }) => {
             solve_status = status
@@ -115,35 +128,35 @@ export const connect = ({
         }
         if (turnstile === true) {
             setSolveStatus({ status: true })
-            autoSolve({ page: page, browser: browser })
+            autoSolve({ page: page, browser: browserPptr })
         }
 
-        await page.setUserAgent(chromeSession.agent);
+        await page.setUserAgent(session.agent);
 
         await page.setViewport({
             width: 1920,
             height: 1080
         });
 
-        browser.on('disconnected', async () => {
+        browserPptr.on('disconnected', async () => {
             notice({
                 message: 'Browser Disconnected',
                 type: 'info'
             })
             try { setSolveStatus({ status: false }) } catch (err) { }
-            await closeSession({
+            await chromium.closeSession({
                 xvfbsession: xvfbsession,
                 cdpSession: cdpSession,
-                chrome: chrome
+                browser: browserPptr
             }).catch(err => { console.log(err.message); })
         });
 
 
-        browser.on('targetcreated', async target => {
+        browserPptr.on('targetcreated', async target => {
             var newPage = await target.page();
 
             try {
-                await newPage.setUserAgent(chromeSession.agent);
+                await newPage.setUserAgent(session.agent);
             } catch (err) {
                 // console.log(err.message);
             }
@@ -175,11 +188,11 @@ export const connect = ({
 
         resolve({
             puppeteerExtra: puppeteer,
-            browser: browser,
+            browser: browserPptr,
             page: page,
             xvfbsession: xvfbsession,
             cdpSession: cdpSession,
-            chrome: chrome,
+            session: session,
             setTarget: setTarget
         })
     })
