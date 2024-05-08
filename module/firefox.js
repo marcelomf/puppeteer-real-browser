@@ -3,7 +3,7 @@ import CDP from 'chrome-remote-interface';
 import axios from 'axios'
 import Xvfb from 'xvfb';
 import { notice, slugify } from './general.js'
-import * as firefoxPath from "firefox-location";
+import firefoxPath from "firefox-location";
 
 const PORT_DEBUG = 9222;
 let browser;
@@ -52,9 +52,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
 
             const browserFlags = ['--remote-debugging-port '+PORT_DEBUG].concat(args);
 
-            if (headless === true) {
-                slugify(process.platform).includes('win') ? browserFlags.push('--headless=new') : ''
-            }
+            if (headless === true) browserFlags.push('-headless');
 
             if (proxy && proxy.host && proxy.host.length > 0) {
                 chromeFlags.push(`--proxy-server=${proxy.host}:${proxy.port}`);
@@ -82,6 +80,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 product: "firefox",
                 protocol: protocol,
                 executablePath: browserPath,
+                headless: headless,
                 args: browserFlags,
                 ...customConfig
             });
