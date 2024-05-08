@@ -93,6 +93,7 @@ export const connect = ({
         console.log(port);
 
         const browserPptr = await puppeteerExtra.connect({
+            browser: browser,
             args: args,
             product: product,
             protocol: protocol,
