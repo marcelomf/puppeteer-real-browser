@@ -4,7 +4,7 @@
 import { startSession, closeSession } from './module/chromium.js'
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-stealth = StealthPlugin();
+const stealth = StealthPlugin();
 stealth.enabledEvasions.delete("chrome.runtime");
 stealth.enabledEvasions.delete("iframe.contentWindow");
 puppeteer.use(stealth);
