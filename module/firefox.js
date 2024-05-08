@@ -79,6 +79,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             console.log("VAI FIREFOX")
 
             browser = await launch({
+                dumpio: true,
                 product: "firefox",
                 protocol: protocol,
                 executablePath: browserPath,
