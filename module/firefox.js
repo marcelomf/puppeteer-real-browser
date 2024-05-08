@@ -96,9 +96,12 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 DOM.enable()
             ]);
 
-            var session = await axios.get('http://localhost:' + PORT_DEBUG + '/json/version')
+            console.log("VAI AAXIOS")
+
+            var session = await axios.get('http://127.0.0.1:' + PORT_DEBUG + '/json/version')
                 .then(response => {
                     response = response.data
+                    console.log(response.data);
                     return {
                         browserWSEndpoint: response.webSocketDebuggerUrl,
                         agent: response['User-Agent']
@@ -107,6 +110,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 .catch(err => {
                     throw new Error(err.message)
                 })
+                console.log("VEIO AXIOS");
             return resolve({
                 session: session,
                 cdpSession: cdpSession,
