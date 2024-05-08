@@ -86,18 +86,23 @@ export const connect = ({
         let xvfbsession = resultBrowser.xvfbsession;
         let port = resultBrowser.port;
 
+        console.log("AQUI 0");
+
         const browserPptr = await puppeteerExtra.connect({
             args: args,
             product: product,
             protocol: protocol,
             targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
-            browserWSEndpoint: (protocol == "cdp") ? session.browserWSEndpoint : `ws://127.0.0.1:${port}`,
+            browserWSEndpoint: (protocol == "cdp") ? session.browserWSEndpoint : `ws://127.0.0.1:${port}/`,
             ...connectOption
         });
+        console.log("AQUI 1");
 
-        await browserPptr.newPage();
-        var page = await browserPptr.pages();
-        page = page[0];
+        //await browserPptr.newPage();
+        var pages = await browserPptr.pages();
+        var page = pages[0];
+
+        console.log("AQUI 2");
 
         setTarget({ status: true });
 
@@ -132,7 +137,11 @@ export const connect = ({
             autoSolve({ page: page, browser: browserPptr })
         }
 
+        console.log("AQUI 3");
+
         await page.setUserAgent(session.agent || session.userAgent);
+
+        console.log("AQUI 4");
 
         await page.setViewport({
             width: 1920,

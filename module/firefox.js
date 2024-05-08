@@ -95,7 +95,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             let Page;
             let Runtime;
             let DOM;
-            let session;
+            let session = {browserWSEndpoint: null, agent: null}; // n alterar
             if(protocol == "cdp") {
                 cdpSession = await CDP({ port: PORT_DEBUG });
                 Network = cdpSession.Network;
