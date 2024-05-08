@@ -5,7 +5,7 @@ import Xvfb from 'xvfb';
 import { notice, slugify } from './general.js'
 import firefoxPath from "firefox-location";
 
-const PORT_DEBUG = 9222;
+//const PORT_DEBUG = 9222;
 let browser;
 
 export const closeSession = async ({ xvfbsession, cdpSession, browser }) => {
@@ -50,7 +50,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 headless = slugify(process.platform).includes('linux') ? true : false
             }
 
-            const browserFlags = ['--remote-debugging-port '+PORT_DEBUG].concat(args);
+            const browserFlags = ['--remote-debugging-port 0'].concat(args);
 
             if (headless === true) browserFlags.push('-headless');
 
@@ -76,7 +76,9 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             // extraPrefsFirefox?: Record<string, unknown>;
             //* {@link https://searchfox.org/mozilla-release/source/modules/libpref/init/all.js | Additional preferences } that can be passed when launching with Firefox.
 
-            var browser = await launch({
+            console.log("VAI FIREFOX")
+
+            browser = await launch({
                 product: "firefox",
                 protocol: protocol,
                 executablePath: browserPath,
@@ -84,7 +86,12 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 args: browserFlags,
                 ...customConfig
             });
-            //PORT_DEBUG = browser.wsEndpoint().port;
+
+            console.log("VEIO FIREFOX")
+            
+            PORT_DEBUG = browser.wsEndpoint().port;
+
+            console.log("VEIO FIREFOX PORT", PORT_DEBUG)
 
             var cdpSession = await CDP({ port: PORT_DEBUG });
             const { Network, Page, Runtime, DOM } = cdpSession;
