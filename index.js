@@ -6,8 +6,8 @@ let puppeteerExtra = addExtra(puppeteer);
 stealth.enabledEvasions.delete("chrome.runtime");
 stealth.enabledEvasions.delete("iframe.contentWindow");
 puppeteerExtra.use(stealth);
-import chromium from './module/chromium.js'
-import firefox from './module/firefox.js'
+import * as chromium from './module/chromium.js'
+import * as firefox from './module/firefox.js'
 import { notice, sleep } from './module/general.js'
 import { checkStat } from './module/turnstile.js'
 import { protectPage, protectedBrowser } from 'puppeteer-afp'
