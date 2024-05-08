@@ -120,6 +120,21 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 .catch(err => {
                     throw new Error(err.message)
                 })
+            } else {
+                console.log("VEIO BIDI");
+                //{"value":{"capabilities":{"webSocketUrl":"ws://localhost:9222/session/571f206f-c3fe-794c-9218-77fa89595eb9", [..]}, "sessionId":"571f206f-c3fe-794c-9218-77fa89595eb9"}}
+                session = await axios.post('http://127.0.0.1:' + PORT_DEBUG, {"capabilities": {"alwaysMatch": {"webSocketUrl": true}}})
+                .then(response => {
+                    response = response.data;
+                    console.log(response);
+                    return {
+                        browserWSEndpoint: response.value.capabilities.webSocketUrl,
+                        agent: response['User-Agent']
+                    }
+                })
+                .catch(err => {
+                    throw new Error(err.message)
+                })
             }
 
             return resolve({
