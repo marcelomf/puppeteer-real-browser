@@ -88,12 +88,16 @@ export const connect = ({
 
         console.log("AQUI 0");
 
+        console.log(protocol);
+        console.log(session);
+        console.log(port);
+
         const browserPptr = await puppeteerExtra.connect({
             args: args,
             product: product,
             protocol: protocol,
             targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
-            browserWSEndpoint: (protocol == "cdp") ? session.browserWSEndpoint : `ws://127.0.0.1:${port}/`,
+            browserWSEndpoint: (protocol == "cdp") ? session.browserWSEndpoint : `ws://127.0.0.1:${port}`,
             ...connectOption
         });
         console.log("AQUI 1");

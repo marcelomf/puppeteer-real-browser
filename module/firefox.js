@@ -88,7 +88,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             });
 
             let wsString = browser.wsEndpoint();
-            PORT_DEBUG = wsString.split(":")[2].split("/")[0];
+            PORT_DEBUG = (protocol == "cdp") ? wsString.split(":")[2].split("/")[0] : wsString.split(":")[2];
 
             var cdpSession;
             let Network;
