@@ -5,7 +5,7 @@ import Xvfb from 'xvfb';
 import { notice, slugify } from './general.js'
 import firefoxPath from "firefox-location";
 
-const PORT_DEBUG = 9222;
+let PORT_DEBUG;
 let browser;
 
 export const closeSession = async ({ xvfbsession, cdpSession, browser }) => {
@@ -50,7 +50,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 headless = slugify(process.platform).includes('linux') ? true : false
             }
 
-            const browserFlags = ['--remote-debugging-port '+PORT_DEBUG].concat(args);
+            const browserFlags = args; //['--remote-debugging-port '+PORT_DEBUG].concat(args);
 
             if (headless === true) browserFlags.push('-headless');
 
@@ -80,7 +80,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
 
             browser = await launch({
                 //dumpio: true,
-                debuggingPort: PORT_DEBUG,
+                //debuggingPort: PORT_DEBUG,
                 product: "firefox",
                 protocol: protocol,
                 executablePath: browserPath,
@@ -88,6 +88,9 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 args: browserFlags,
                 ...customConfig
             });
+
+            let wsString = browser.wsEndpoint();
+            PORT_DEBUG = wsString.split(":")[2].split("/")[0];
 
             console.log("VEIO FIREFOX PORT", PORT_DEBUG)
 
