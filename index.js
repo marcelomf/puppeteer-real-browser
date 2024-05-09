@@ -96,13 +96,25 @@ export const connect = ({
             solve_status = status
         }
 
+        // const autoSolve = ({ page }) => {
+        //     return new Promise(async (resolve, reject) => {
+        //         for(let i = 0; i < 10; i++) {
+        //             try {
+        //                 await sleep(1500)
+        //                 await checkStat({ page: page }).catch(err => { })
+        //                 break;
+        //             } catch (err) { }
+        //         }
+        //         resolve()
+        //     })
+        // }
+
         const autoSolve = ({ page }) => {
             return new Promise(async (resolve, reject) => {
-                for(let i = 0; i < 10; i++) {
+                while (solve_status) {
                     try {
                         await sleep(1500)
                         await checkStat({ page: page }).catch(err => { })
-                        break;
                     } catch (err) { }
                 }
                 resolve()
