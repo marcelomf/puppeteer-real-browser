@@ -147,6 +147,13 @@ export const connect = ({
             autoSolve({ page: page, browser: browserPptr })
         }
 
+        await page.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
+
+        await page.setViewport({
+            width: 1920,
+            height: 1080
+        });
+
         return resolve({
             port: port,
             puppeteerExtra: puppeteer,
@@ -157,13 +164,6 @@ export const connect = ({
             session: session,
             setTarget: setTarget
         })
-
-        await page.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
-
-        await page.setViewport({
-            width: 1920,
-            height: 1080
-        });
 
         browserPptr.on('disconnected', async () => {
             notice({
