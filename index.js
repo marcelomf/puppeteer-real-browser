@@ -154,26 +154,26 @@ export const connect = ({
             height: 1080
         });
 
-        browserPptr.on('disconnected', async () => {
-            notice({
-                message: 'Browser Disconnected',
-                type: 'info'
-            })
-            try { setSolveStatus({ status: false }) } catch (err) { }
-            if(product == "firefox") {
-                await firefox.closeSession({
-                    xvfbsession: xvfbsession,
-                    cdpSession: cdpSession,
-                    browser: browserPptr
-                }).catch(err => { console.log(err.message); })
-            } else {
-                await chromium.closeSession({
-                    xvfbsession: xvfbsession,
-                    cdpSession: cdpSession,
-                    browser: browserPptr
-                }).catch(err => { console.log(err.message); })
-            }
-        });
+        // browserPptr.on('disconnected', async () => {
+        //     notice({
+        //         message: 'Browser Disconnected',
+        //         type: 'info'
+        //     })
+        //     try { setSolveStatus({ status: false }) } catch (err) { }
+        //     if(product == "firefox") {
+        //         await firefox.closeSession({
+        //             xvfbsession: xvfbsession,
+        //             cdpSession: cdpSession,
+        //             browser: browserPptr
+        //         }).catch(err => { console.log(err.message); })
+        //     } else {
+        //         await chromium.closeSession({
+        //             xvfbsession: xvfbsession,
+        //             cdpSession: cdpSession,
+        //             browser: browserPptr
+        //         }).catch(err => { console.log(err.message); })
+        //     }
+        // });
 
 
         // browserPptr.on('targetcreated', async target => {
