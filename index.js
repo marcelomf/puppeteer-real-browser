@@ -151,7 +151,7 @@ export const connect = ({
             handleNewPage({ page: page, config: fpconfig });
         }
 
-        //await page.goto("https://www.uol.com.br");
+        await page.goto("https://www.google.com");
 
         if (turnstile === true) {
             setSolveStatus({ status: true })
