@@ -154,17 +154,6 @@ export const connect = ({
             height: 1080
         });
 
-        return resolve({
-            port: port,
-            puppeteerExtra: puppeteer,
-            browser: browserPptr,
-            page: page,
-            xvfbsession: xvfbsession,
-            cdpSession: cdpSession,
-            session: session,
-            setTarget: setTarget
-        })
-
         browserPptr.on('disconnected', async () => {
             notice({
                 message: 'Browser Disconnected',
