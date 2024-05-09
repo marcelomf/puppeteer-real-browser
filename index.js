@@ -108,7 +108,7 @@ export const connect = ({
         var pages = await browserPptr.pages();
         var page = pages[0];
 
-        //await page.goto("https://www.uol.com.br");
+        await page.goto("https://www.uol.com.br");
 
         
 
