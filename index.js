@@ -98,7 +98,7 @@ export const connect = ({
 
         const autoSolve = ({ page }) => {
             return new Promise(async (resolve, reject) => {
-                for(let i = 0; i < 5; i++) {
+                for(let i = 0; i < 10; i++) {
                     try {
                         await sleep(1500)
                         await checkStat({ page: page }).catch(err => { })
@@ -115,7 +115,7 @@ export const connect = ({
 
         if (turnstile === true) {
             setSolveStatus({ status: true })
-            await autoSolve({ page: page, browser: browserPptr })
+            autoSolve({ page: page, browser: browserPptr })
         }
 
         // alterei o protocol, por inverti abaixo 
@@ -168,12 +168,12 @@ export const connect = ({
 
             if (newPage && fingerprint === true) {
                 try {
-                    await handleNewPage({ page: newPage, config: fpconfig });
+                    handleNewPage({ page: newPage, config: fpconfig });
                 } catch (err) { }
             }
 
             if (turnstile === true) {
-                await autoSolve({ page: newPage })
+                autoSolve({ page: newPage })
             }
         });
 
