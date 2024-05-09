@@ -117,7 +117,7 @@ export const connect = ({
         // page.on('response', async(response) => {
         // });
 
-        await page.goto("https://www.uol.com.br", { waitUntil: 'networkidle2' });
+        //await page.goto("https://www.uol.com.br", { waitUntil: 'networkidle2' });
 
         //console.log("AQUI 3");
         //await page.goto("https://www.google.com", { waitUntil: 'networkidle2' });
