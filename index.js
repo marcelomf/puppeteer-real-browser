@@ -101,36 +101,36 @@ export const connect = ({
         //await page.goto("https://www.google.com", { waitUntil: 'networkidle2' });
 
 
-        console.log("AQUI 4");
+        // console.log("AQUI 4");
 
-        if (proxy && proxy.username && proxy.username.length > 0) {
-            await page.authenticate({ username: proxy.username, password: proxy.password });
-        }
+        // if (proxy && proxy.username && proxy.username.length > 0) {
+        //     await page.authenticate({ username: proxy.username, password: proxy.password });
+        // }
 
-        var solve_status = true
+        // var solve_status = true
 
-        const setSolveStatus = ({ status }) => {
-            solve_status = status
-        }
+        // const setSolveStatus = ({ status }) => {
+        //     solve_status = status
+        // }
 
-        const autoSolve = ({ page }) => {
-            return new Promise(async (resolve, reject) => {
-                for(let i = 0; i < 5; i++) {
-                    try {
-                        await sleep(1500)
-                        await checkStat({ page: page }).catch(err => { })
-                        break;
-                    } catch (err) { }
-                }
-                resolve()
-            })
-        }
+        // const autoSolve = ({ page }) => {
+        //     return new Promise(async (resolve, reject) => {
+        //         for(let i = 0; i < 5; i++) {
+        //             try {
+        //                 await sleep(1500)
+        //                 await checkStat({ page: page }).catch(err => { })
+        //                 break;
+        //             } catch (err) { }
+        //         }
+        //         resolve()
+        //     })
+        // }
 
         
 
-        if (fingerprint === true) {
-            handleNewPage({ page: page, config: fpconfig });
-        }
+        // if (fingerprint === true) {
+        //     handleNewPage({ page: page, config: fpconfig });
+        // }
 
 
         
