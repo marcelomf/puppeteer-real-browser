@@ -105,49 +105,49 @@ export const connect = ({
 
         // console.log("AQUI 4");
 
-        // if (proxy && proxy.username && proxy.username.length > 0) {
-        //     await page.authenticate({ username: proxy.username, password: proxy.password });
-        // }
+        if (proxy && proxy.username && proxy.username.length > 0) {
+            await page.authenticate({ username: proxy.username, password: proxy.password });
+        }
 
-        // var solve_status = true
+        var solve_status = true
 
-        // const setSolveStatus = ({ status }) => {
-        //     solve_status = status
-        // }
+        const setSolveStatus = ({ status }) => {
+            solve_status = status
+        }
 
-        // const autoSolve = ({ page }) => {
-        //     return new Promise(async (resolve, reject) => {
-        //         for(let i = 0; i < 5; i++) {
-        //             try {
-        //                 await sleep(1500)
-        //                 await checkStat({ page: page }).catch(err => { })
-        //                 break;
-        //             } catch (err) { }
-        //         }
-        //         resolve()
-        //     })
-        // }
-
-        
-
-        // if (fingerprint === true) {
-        //     handleNewPage({ page: page, config: fpconfig });
-        // }
-
+        const autoSolve = ({ page }) => {
+            return new Promise(async (resolve, reject) => {
+                for(let i = 0; i < 5; i++) {
+                    try {
+                        await sleep(1500)
+                        await checkStat({ page: page }).catch(err => { })
+                        break;
+                    } catch (err) { }
+                }
+                resolve()
+            })
+        }
 
         
 
-        // if (turnstile === true) {
-        //     setSolveStatus({ status: true })
-        //     await autoSolve({ page: page, browser: browserPptr })
-        // }
+        if (fingerprint === true) {
+            handleNewPage({ page: page, config: fpconfig });
+        }
 
-        // await page.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");        
 
-        // await page.setViewport({
-        //     width: 1920,
-        //     height: 1080
-        // });
+        
+
+        if (turnstile === true) {
+            setSolveStatus({ status: true })
+            await autoSolve({ page: page, browser: browserPptr })
+        }
+
+        await page.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");        
+
+        await page.setViewport({
+            width: 1920,
+            height: 1080
+        });
 
         // browserPptr.on('disconnected', async () => {
         //     notice({
