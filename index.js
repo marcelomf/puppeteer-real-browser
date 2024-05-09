@@ -147,56 +147,56 @@ export const connect = ({
             height: 1080
         });
 
-        browserPptr.on('disconnected', async () => {
-            notice({
-                message: 'Browser Disconnected',
-                type: 'info'
-            })
-            try { setSolveStatus({ status: false }) } catch (err) { }
-            if(product == "firefox") {
-                await firefox.closeSession({
-                    xvfbsession: xvfbsession,
-                    cdpSession: cdpSession,
-                    browser: browserPptr
-                }).catch(err => { console.log(err.message); })
-            } else {
-                await chromium.closeSession({
-                    xvfbsession: xvfbsession,
-                    cdpSession: cdpSession,
-                    browser: browserPptr
-                }).catch(err => { console.log(err.message); })
-            }
-        });
+        // browserPptr.on('disconnected', async () => {
+        //     notice({
+        //         message: 'Browser Disconnected',
+        //         type: 'info'
+        //     })
+        //     try { setSolveStatus({ status: false }) } catch (err) { }
+        //     if(product == "firefox") {
+        //         await firefox.closeSession({
+        //             xvfbsession: xvfbsession,
+        //             cdpSession: cdpSession,
+        //             browser: browserPptr
+        //         }).catch(err => { console.log(err.message); })
+        //     } else {
+        //         await chromium.closeSession({
+        //             xvfbsession: xvfbsession,
+        //             cdpSession: cdpSession,
+        //             browser: browserPptr
+        //         }).catch(err => { console.log(err.message); })
+        //     }
+        // });
 
 
-        browserPptr.on('targetcreated', async target => {
-            var newPage = await target.page();
+        // browserPptr.on('targetcreated', async target => {
+        //     var newPage = await target.page();
 
-            try {
-                await newPage.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
-            } catch (err) {
-                // console.log(err.message);
-            }
+        //     try {
+        //         await newPage.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
+        //     } catch (err) {
+        //         // console.log(err.message);
+        //     }
 
-            try {
-                await newPage.setViewport({
-                    width: 1920,
-                    height: 1080
-                });
-            } catch (err) {
-                // console.log(err.message);
-            }
+        //     try {
+        //         await newPage.setViewport({
+        //             width: 1920,
+        //             height: 1080
+        //         });
+        //     } catch (err) {
+        //         // console.log(err.message);
+        //     }
 
-            if (newPage && fingerprint === true) {
-                try {
-                    await handleNewPage({ page: newPage, config: fpconfig });
-                } catch (err) { }
-            }
+        //     if (newPage && fingerprint === true) {
+        //         try {
+        //             await handleNewPage({ page: newPage, config: fpconfig });
+        //         } catch (err) { }
+        //     }
 
-            if (turnstile === true) {
-                await autoSolve({ page: newPage })
-            }
-        });
+        //     if (turnstile === true) {
+        //         await autoSolve({ page: newPage })
+        //     }
+        // });
 
         resolve({
             port: port,
