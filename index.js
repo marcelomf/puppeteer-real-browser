@@ -108,14 +108,14 @@ export const connect = ({
         var pages = await browserPptr.pages();
         var page = pages[0];
 
-        await page.setRequestInterception(true);
+        // await page.setRequestInterception(true);
         
-        page.on('request', (request) => {
-            request.continue();
-        });
+        // page.on('request', (request) => {
+        //     request.continue();
+        // });
 
-        page.on('response', async(response) => {
-        });
+        // page.on('response', async(response) => {
+        // });
 
         await page.goto("https://www.uol.com.br");
 
@@ -151,8 +151,6 @@ export const connect = ({
             handleNewPage({ page: page, config: fpconfig });
         }
 
-
-
         if (turnstile === true) {
             setSolveStatus({ status: true })
             autoSolve({ page: page, browser: browserPptr })
@@ -165,26 +163,26 @@ export const connect = ({
             height: 1080
         });
 
-        browserPptr.on('disconnected', async () => {
-            notice({
-                message: 'Browser Disconnected',
-                type: 'info'
-            })
-            try { setSolveStatus({ status: false }) } catch (err) { }
-            if(product == "firefox") {
-                await firefox.closeSession({
-                    xvfbsession: xvfbsession,
-                    cdpSession: cdpSession,
-                    browser: browserPptr
-                }).catch(err => { console.log(err.message); })
-            } else {
-                await chromium.closeSession({
-                    xvfbsession: xvfbsession,
-                    cdpSession: cdpSession,
-                    browser: browserPptr
-                }).catch(err => { console.log(err.message); })
-            }
-        });
+        // browserPptr.on('disconnected', async () => {
+        //     notice({
+        //         message: 'Browser Disconnected',
+        //         type: 'info'
+        //     })
+        //     try { setSolveStatus({ status: false }) } catch (err) { }
+        //     if(product == "firefox") {
+        //         await firefox.closeSession({
+        //             xvfbsession: xvfbsession,
+        //             cdpSession: cdpSession,
+        //             browser: browserPptr
+        //         }).catch(err => { console.log(err.message); })
+        //     } else {
+        //         await chromium.closeSession({
+        //             xvfbsession: xvfbsession,
+        //             cdpSession: cdpSession,
+        //             browser: browserPptr
+        //         }).catch(err => { console.log(err.message); })
+        //     }
+        // });
 
 
         // browserPptr.on('targetcreated', async target => {
