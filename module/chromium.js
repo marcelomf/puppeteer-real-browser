@@ -31,7 +31,7 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
     return new Promise(async (resolve, reject) => {
         try {
             var xvfbsession = null
-            var chromePath = customConfig.executablePath || customConfig.chromePath || chromium.path;
+            var chromePath = customConfig.executablePath || customConfig.chromePath; // || chromium.path;
 
             if (slugify(process.platform).includes('linux') && headless === false) {
                 notice({
