@@ -151,48 +151,33 @@ export const connect = ({
             await autoSolve({ page: page, browser: browserPptr })
         }
 
-        return resolve({
-            port: port,
-            puppeteerExtra: puppeteer,
-            browser: browserPptr,
-            page: page,
-            xvfbsession: xvfbsession,
-            cdpSession: cdpSession,
-            session: session,
-            setTarget: setTarget
-        })
-
-        
-        await page.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
-
-
-        
+        await page.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");        
 
         await page.setViewport({
             width: 1920,
             height: 1080
         });
 
-        // browserPptr.on('disconnected', async () => {
-        //     notice({
-        //         message: 'Browser Disconnected',
-        //         type: 'info'
-        //     })
-        //     try { setSolveStatus({ status: false }) } catch (err) { }
-        //     if(product == "firefox") {
-        //         await firefox.closeSession({
-        //             xvfbsession: xvfbsession,
-        //             cdpSession: cdpSession,
-        //             browser: browserPptr
-        //         }).catch(err => { console.log(err.message); })
-        //     } else {
-        //         await chromium.closeSession({
-        //             xvfbsession: xvfbsession,
-        //             cdpSession: cdpSession,
-        //             browser: browserPptr
-        //         }).catch(err => { console.log(err.message); })
-        //     }
-        // });
+        browserPptr.on('disconnected', async () => {
+            notice({
+                message: 'Browser Disconnected',
+                type: 'info'
+            })
+            try { setSolveStatus({ status: false }) } catch (err) { }
+            if(product == "firefox") {
+                await firefox.closeSession({
+                    xvfbsession: xvfbsession,
+                    cdpSession: cdpSession,
+                    browser: browserPptr
+                }).catch(err => { console.log(err.message); })
+            } else {
+                await chromium.closeSession({
+                    xvfbsession: xvfbsession,
+                    cdpSession: cdpSession,
+                    browser: browserPptr
+                }).catch(err => { console.log(err.message); })
+            }
+        });
 
 
         // browserPptr.on('targetcreated', async target => {
