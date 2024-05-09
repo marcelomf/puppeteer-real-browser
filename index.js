@@ -2,10 +2,10 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 let stealth = StealthPlugin();
 import puppeteer from 'puppeteer';
 import { addExtra } from 'puppeteer-extra'
-let puppeteerExtra = addExtra(puppeteer);
-stealth.enabledEvasions.delete("chrome.runtime");
-stealth.enabledEvasions.delete("iframe.contentWindow");
-puppeteerExtra.use(stealth);
+//let puppeteerExtra = addExtra(puppeteer);
+//stealth.enabledEvasions.delete("chrome.runtime");
+//stealth.enabledEvasions.delete("iframe.contentWindow");
+//puppeteerExtra.use(stealth);
 import * as chromium from './module/chromium.js'
 import * as firefox from './module/firefox.js'
 import { notice, sleep } from './module/general.js'
@@ -164,34 +164,34 @@ export const connect = ({
         });
 
 
-        browserPptr.on('targetcreated', async target => {
-            var newPage = await target.page();
+        // browserPptr.on('targetcreated', async target => {
+        //     var newPage = await target.page();
 
-            try {
-                await newPage.setUserAgent(session.agent);
-            } catch (err) {
-                // console.log(err.message);
-            }
+        //     try {
+        //         await newPage.setUserAgent(session.agent);
+        //     } catch (err) {
+        //         // console.log(err.message);
+        //     }
 
-            try {
-                await newPage.setViewport({
-                    width: 1920,
-                    height: 1080
-                });
-            } catch (err) {
-                // console.log(err.message);
-            }
+        //     try {
+        //         await newPage.setViewport({
+        //             width: 1920,
+        //             height: 1080
+        //         });
+        //     } catch (err) {
+        //         // console.log(err.message);
+        //     }
 
-            if (newPage && fingerprint === true) {
-                try {
-                    handleNewPage({ page: newPage, config: fpconfig });
-                } catch (err) { }
-            }
+        //     if (newPage && fingerprint === true) {
+        //         try {
+        //             handleNewPage({ page: newPage, config: fpconfig });
+        //         } catch (err) { }
+        //     }
 
-            if (turnstile === true) {
-                autoSolve({ page: newPage })
-            }
-        });
+        //     if (turnstile === true) {
+        //         autoSolve({ page: newPage })
+        //     }
+        // });
 
         resolve({
             port: port,
