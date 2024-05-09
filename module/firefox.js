@@ -89,7 +89,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 ...customConfig
             });
 
-            await browser.newPage();
+            //await browser.newPage();
 
             console.log("UAU 1");
 

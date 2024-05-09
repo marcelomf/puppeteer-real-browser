@@ -89,21 +89,21 @@ export const connect = ({
         console.log("AQUI 0");
 
         let browserPptr = browser;
-        // let browserPptr = await puppeteerExtra.connect({
-        //     browser: (product == "firefox" && protocol == "webDriverBiDi") ? browser : null,
-        //     args: args,
-        //     product: product,
-        //     protocol: (product == "firefox" && protocol == "webDriverBiDi") ? "cdp" : protocol,
-        //     //targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
-        //     browserWSEndpoint: (product == "firefox" && protocol == "webDriverBiDi") ? browser.cdpConnection.url() : session.browserWSEndpoint,
-        //     ...connectOption
-        // });
+        browserPptr = await puppeteerExtra.connect({
+            browser: (product == "firefox" && protocol == "webDriverBiDi") ? browser : null,
+            args: args,
+            product: product,
+            protocol: (product == "firefox" && protocol == "webDriverBiDi") ? "cdp" : protocol,
+            //targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
+            browserWSEndpoint: (product == "firefox" && protocol == "webDriverBiDi") ? browser.cdpConnection.url() : session.browserWSEndpoint,
+            ...connectOption
+        });
 
         
 
         console.log("AQUI 1");
     
-        await browserPptr.newPage();
+        //await browserPptr.newPage();
         console.log("AQUI 2");
         var pages = await browserPptr.pages();
         var page = pages[0];
