@@ -89,15 +89,15 @@ export const connect = ({
         console.log("AQUI 0");
 
         let browserPptr = browser;
-        browserPptr = await puppeteerExtra.connect({
-            browser: (product == "firefox" && protocol == "webDriverBiDi") ? browser : null,
-            args: args,
-            product: product,
-            protocol: (product == "firefox" && protocol == "webDriverBiDi") ? "cdp" : protocol,
-            //targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
-            browserWSEndpoint: (product == "firefox" && protocol == "webDriverBiDi") ? browser.cdpConnection.url() : session.browserWSEndpoint,
-            ...connectOption
-        });
+        // browserPptr = await puppeteerExtra.connect({
+        //     browser: (product == "firefox" && protocol == "webDriverBiDi") ? browser : null,
+        //     args: args,
+        //     product: product,
+        //     protocol: (product == "firefox" && protocol == "webDriverBiDi") ? "cdp" : protocol,
+        //     //targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
+        //     browserWSEndpoint: (product == "firefox" && protocol == "webDriverBiDi") ? browser.cdpConnection.url() : session.browserWSEndpoint,
+        //     ...connectOption
+        // });
 
         
 
