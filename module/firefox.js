@@ -99,18 +99,18 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             let DOM;
             let session = {browserWSEndpoint: wsString, agent: null}; // n alterar
             if(protocol == "webDriverBiDi") {
-                cdpSession = await CDP({ port: PORT_DEBUG });
-                Network = cdpSession.Network;
-                Page = cdpSession.Page;
-                Runtime = cdpSession.Runtime;
-                DOM = cdpSession.DOM;
-                await Promise.all([
-                    Page.enable(),
-                    Page.setLifecycleEventsEnabled({ enabled: true }),
-                    Runtime.enable(),
-                    Network.enable(),
-                    DOM.enable()
-                ]);
+                // cdpSession = await CDP({ port: PORT_DEBUG });
+                // Network = cdpSession.Network;
+                // Page = cdpSession.Page;
+                // Runtime = cdpSession.Runtime;
+                // DOM = cdpSession.DOM;
+                // await Promise.all([
+                //     Page.enable(),
+                //     Page.setLifecycleEventsEnabled({ enabled: true }),
+                //     Runtime.enable(),
+                //     Network.enable(),
+                //     DOM.enable()
+                // ]);
                 session = await axios.get('http://127.0.0.1:' + PORT_DEBUG + '/json/version')
                 .then(response => {
                     response = response.data
