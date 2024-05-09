@@ -102,11 +102,11 @@ export const connect = ({
         //     session: session
         // })
 
-        await page.setRequestInterception(true);
+        // await page.setRequestInterception(true);
         
-        page.on('request', (request) => {
-             request.continue();
-        });
+        // page.on('request', (request) => {
+        //      request.continue();
+        // });
 
         // page.on('response', async(response) => {
         // });
