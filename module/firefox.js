@@ -126,7 +126,20 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 .catch(err => {
                     throw new Error(err.message)
                 })
+            } else {
+                session = await axios.get('http://127.0.0.1:' + PORT_DEBUG + '/json/version')
+                .then(response => {
+                    response = response.data
+                    return {
+                        browserWSEndpoint: response.webSocketDebuggerUrl,
+                        agent: response['User-Agent']
+                    }
+                })
+                .catch(err => {
+                    throw new Error(err.message)
+                });
             }
+
             if(protocol == "webDriverBiDi") session.browserWSEndpoint = wsString;
             console.log("UAU 2");
 

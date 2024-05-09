@@ -71,11 +71,17 @@ export const connect = ({
         let browserPptr;
         if(product == "firefox") browserPptr = browser;
 
+        if(product == "firefox" && protocol == "webDriverBiDi") {
+            protocol = "cdp";
+        } else if(product == "firefox" && protocol == "cdp") {
+            protocol = "webDriverBiDi";
+        }
+
         browserPptr = await puppeteerExtra.connect({
             browser: (product == "firefox") ? browser : null,
             args: args,
             product: product,
-            protocol: (product == "firefox" && protocol == "webDriverBiDi") ? "cdp" : protocol,
+            protocol: protocol,
             browserWSEndpoint: (product == "firefox" && protocol == "webDriverBiDi") ? browser.cdpConnection.url() : session.browserWSEndpoint,
             ...connectOption
         });
