@@ -93,7 +93,7 @@ export const connect = ({
             args: args,
             product: product,
             protocol: (product == "firefox" && protocol == "webDriverBiDi") ? "cdp" : protocol,
-            targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
+            //targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
             browserWSEndpoint: (product == "firefox" && protocol == "webDriverBiDi") ? browser.cdpConnection.url() : session.browserWSEndpoint,
             ...connectOption
         });
