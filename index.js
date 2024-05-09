@@ -71,7 +71,7 @@ export const connect = ({
         let browserPptr;
         if(product == "firefox") browserPptr = browser;
         browserPptr = await puppeteerExtra.connect({
-            browser: (product == "firefox") ? browser : null,
+            browser: (product == "firefox" && protocol == "webDriverBiDi") ? browser : null,
             args: args,
             product: product,
             protocol: (product == "firefox" && protocol == "webDriverBiDi") ? "cdp" : protocol,
