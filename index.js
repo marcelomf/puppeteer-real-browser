@@ -57,7 +57,6 @@ export const connect = ({
                 proxy: proxy
             })
         }
-        return;
 
         let session = resultBrowser.session;
         let cdpSession = resultBrowser.cdpSession;
@@ -73,8 +72,6 @@ export const connect = ({
         } else if(product == "firefox" && protocol == "cdp") {
             protocol = "webDriverBiDi";
         }
-
-        
 
         browserPptr = await puppeteerExtra.connect({
             browser: (product == "firefox") ? browser : null,
