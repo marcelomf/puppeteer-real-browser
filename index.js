@@ -89,7 +89,7 @@ export const connect = ({
         console.log("AQUI 0");
 
         let browserPptr = await puppeteerExtra.connect({
-            browser: (product == "firefox") ? browser : null,
+            browser: (product == "firefox" && protocol == "webDriverBiDi") ? browser : null,
             args: args,
             product: product,
             protocol: (product == "firefox" && protocol == "webDriverBiDi") ? "cdp" : protocol,
@@ -100,7 +100,7 @@ export const connect = ({
 
         console.log("AQUI 1");
     
-        await browserPptr.newPage();
+        //await browserPptr.newPage();
         console.log("AQUI 2");
         var pages = await browserPptr.pages();
         var page = pages[0];
