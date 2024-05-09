@@ -68,7 +68,7 @@ export const connect = ({
                 protocol: protocol,
                 headless: headless,
                 customConfig: customConfig,
-                proxy: proxy
+                proxy: proxy,
             })
         } else {
             resultBrowser = await chromium.startSession({
@@ -103,7 +103,7 @@ export const connect = ({
 
         console.log("AQUI 1");
     
-        //await browserPptr.newPage();
+        await browserPptr.newPage();
         console.log("AQUI 2");
         var pages = await browserPptr.pages();
         var page = pages[0];
