@@ -86,11 +86,11 @@ export const connect = ({
         var page = await browserPptr.pages();
         page = page[0];
 
-        // await page.setRequestInterception(true);
+        await page.setRequestInterception(true);
         
-        // page.on('request', (request) => {
-        //     request.continue();
-        // });
+        page.on('request', (request) => {
+             request.continue();
+        });
 
         // page.on('response', async(response) => {
         // });
