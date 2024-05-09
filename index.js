@@ -151,7 +151,8 @@ export const connect = ({
             await autoSolve({ page: page, browser: browserPptr })
         }
 
-        if(protocol != "webDriverBiDi") await page.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");        
+        // alterei o protocol, por inverti abaixo 
+        if(product == "firefox" && protocol == "webDriverBiDi") await page.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");        
 
         // await page.setViewport({
         //     width: 1920,
@@ -184,7 +185,7 @@ export const connect = ({
             var newPage = await target.page();
 
             try {
-                if(protocol != "webDriverBiDi") await newPage.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
+                if(product == "firefox" && protocol == "webDriverBiDi") await newPage.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
             } catch (err) {
                 // console.log(err.message);
             }
