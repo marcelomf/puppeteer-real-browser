@@ -128,7 +128,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 })
             }
 
-            if(product == "firefox" && protocol == "webDriverBiDi") session.browserWSEndpoint = wsString;
+            if(protocol == "webDriverBiDi") session.browserWSEndpoint = wsString;
             console.log("UAU 2");
 
             return resolve({
