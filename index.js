@@ -86,9 +86,9 @@ export const connect = ({
         var page = await browserPptr.pages();
         page = page[0];
 
-        await newPage.setRequestInterception(true);
+        await page.setRequestInterception(true);
         
-        newPage.on('request', (request) => {
+        page.on('request', (request) => {
              request.continue();
         });
 
