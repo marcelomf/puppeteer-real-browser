@@ -38,7 +38,6 @@ export const connect = ({
     fpconfig = {}
 }) => {
     return new Promise(async (resolve, reject) => {
-        var global_target_status = false        
         let resultBrowser;
 
         if(product == "firefox") {
@@ -64,10 +63,7 @@ export const connect = ({
         let browser = resultBrowser.browser;
         let xvfbsession = resultBrowser.xvfbsession;
         let port = resultBrowser.port;
-
-        console.log("AQUI 0");
-
-
+        
         let browserPptr;
         if(product == "firefox") browserPptr = browser;
 
@@ -86,38 +82,9 @@ export const connect = ({
             ...connectOption
         });
 
-        // console.log("AQUI 1");
-    
-        //await browserPptr.newPage();
         var page = await browserPptr.pages();
         page = page[0];
 
-        // return resolve({
-        //     port: port,
-        //     puppeteerExtra: puppeteer,
-        //     browser: browserPptr,
-        //     page: page,
-        //     xvfbsession: xvfbsession,
-        //     cdpSession: cdpSession,
-        //     session: session
-        // })
-
-        // await page.setRequestInterception(true);
-        
-        // page.on('request', (request) => {
-        //      request.continue();
-        // });
-
-        // page.on('response', async(response) => {
-        // });
-
-        //await page.goto("https://www.uol.com.br", { waitUntil: 'networkidle2' });
-
-        //console.log("AQUI 3");
-        //await page.goto("https://www.google.com", { waitUntil: 'networkidle2' });
-
-
-        // console.log("AQUI 4");
 
         if (proxy && proxy.username && proxy.username.length > 0) {
             await page.authenticate({ username: proxy.username, password: proxy.password });
@@ -180,11 +147,11 @@ export const connect = ({
             }
         });
 
-
         browserPptr.on('targetcreated', async target => {
             var newPage = await target.page();
 
             try {
+                // alterei o protocol, por inverti abaixo
                 if(product == "firefox" && protocol == "webDriverBiDi") await newPage.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
             } catch (err) {
                 // console.log(err.message);
@@ -221,8 +188,3 @@ export const connect = ({
         })
     })
 }
-
-
-
-
-

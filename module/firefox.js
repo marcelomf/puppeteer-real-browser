@@ -76,8 +76,6 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             // extraPrefsFirefox?: Record<string, unknown>;
             //* {@link https://searchfox.org/mozilla-release/source/modules/libpref/init/all.js | Additional preferences } that can be passed when launching with Firefox.
 
-            console.log("UAU 0");
-
             browser = await launch({
                 //dumpio: true,
                 //debuggingPort: PORT_DEBUG,
@@ -88,10 +86,6 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 args: browserFlags,
                 ...customConfig
             });
-
-            //await browser.newPage();
-
-            console.log("UAU 1");
 
             let wsString = browser.wsEndpoint();
             PORT_DEBUG = (protocol == "cdp") ? wsString.split(":")[2].split("/")[0] : ((wsString.indexOf("/") >= 0) ? wsString.split(":")[2].split("/")[0] : wsString.split(":")[2]);
@@ -141,7 +135,6 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             }
 
             if(protocol == "webDriverBiDi") session.browserWSEndpoint = wsString;
-            console.log("UAU 2");
 
             return resolve({
                 port: PORT_DEBUG,
