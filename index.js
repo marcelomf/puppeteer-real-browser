@@ -86,6 +86,12 @@ export const connect = ({
         var page = await browserPptr.pages();
         page = page[0];
 
+        await newPage.setRequestInterception(true);
+        
+        newPage.on('request', (request) => {
+             request.continue();
+        });
+
         // page.on('response', async(response) => {
         // });
 
@@ -160,12 +166,6 @@ export const connect = ({
 
         browserPptr.on('targetcreated', async target => {
             var newPage = await target.page();
-
-            await newPage.setRequestInterception(true);
-        
-            newPage.on('request', (request) => {
-                 request.continue();
-            });
 
             try {
                 if(protocol != "webDriverBiDi") await newPage.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
