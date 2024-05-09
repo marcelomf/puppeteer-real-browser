@@ -102,7 +102,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             let Runtime;
             let DOM;
             let session = {browserWSEndpoint: wsString, agent: null}; // n alterar
-            if(protocol == "webDriverBiDi") {
+            if(true || protocol == "webDriverBiDi") {
                 cdpSession = await CDP({ port: PORT_DEBUG });
                 Network = cdpSession.Network;
                 Page = cdpSession.Page;
