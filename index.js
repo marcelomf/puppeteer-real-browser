@@ -205,8 +205,7 @@ export const connect = ({
             page: page,
             xvfbsession: xvfbsession,
             cdpSession: cdpSession,
-            session: session,
-            setTarget: setTarget
+            session: session
         })
     })
 }
