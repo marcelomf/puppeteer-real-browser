@@ -28,7 +28,7 @@ export const closeSession = async ({ xvfbsession, cdpSession, browser }) => {
 }
 
 
-export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', customConfig = {}, proxy = {}, targetFilter = () => {} }) => {
+export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', customConfig = {}, proxy = {}}) => {
     return new Promise(async (resolve, reject) => {
         try {
             var xvfbsession = null
@@ -86,9 +86,10 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 executablePath: browserPath,
                 headless: headless,
                 args: browserFlags,
-                targetFilter: (target) => targetFilter({ target: target, skipTarget: skipTarget }),
                 ...customConfig
             });
+
+            await browser.newPage();
 
             console.log("UAU 1");
 
