@@ -71,17 +71,14 @@ export const connect = ({
         let browserPptr;
         if(product == "firefox") browserPptr = browser;
 
-
-        
-
-        // browserPptr = await puppeteerExtra.connect({
-        //     browser: (product == "firefox" && protocol == "webDriverBiDi") ? browser : null,
-        //     args: args,
-        //     product: product,
-        //     protocol: (product == "firefox" && protocol == "webDriverBiDi") ? "cdp" : protocol,
-        //     browserWSEndpoint: (product == "firefox" && protocol == "webDriverBiDi") ? browser.cdpConnection.url() : session.browserWSEndpoint,
-        //     ...connectOption
-        // });
+        browserPptr = await puppeteerExtra.connect({
+            browser: (product == "firefox") ? browser : null,
+            args: args,
+            product: product,
+            protocol: (product == "firefox" && protocol == "webDriverBiDi") ? "cdp" : protocol,
+            browserWSEndpoint: (product == "firefox" && protocol == "webDriverBiDi") ? browser.cdpConnection.url() : session.browserWSEndpoint,
+            ...connectOption
+        });
 
         // console.log("AQUI 1");
     
@@ -89,15 +86,15 @@ export const connect = ({
         var page = await browserPptr.pages();
         page = page[0];
 
-        return resolve({
-            port: port,
-            puppeteerExtra: puppeteer,
-            browser: browserPptr,
-            page: page,
-            xvfbsession: xvfbsession,
-            cdpSession: cdpSession,
-            session: session
-        })
+        // return resolve({
+        //     port: port,
+        //     puppeteerExtra: puppeteer,
+        //     browser: browserPptr,
+        //     page: page,
+        //     xvfbsession: xvfbsession,
+        //     cdpSession: cdpSession,
+        //     session: session
+        // })
 
         await page.setRequestInterception(true);
         
