@@ -108,6 +108,8 @@ export const connect = ({
         var pages = await browserPptr.pages();
         var page = pages[0];
 
+        await page.setRequestInterception(true);
+
         await page.goto("https://www.uol.com.br");
 
         
