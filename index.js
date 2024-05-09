@@ -108,6 +108,19 @@ export const connect = ({
         var pages = await browserPptr.pages();
         var page = pages[0];
 
+        await page.goto("https://www.uol.com.br");
+
+        return resolve({
+            port: port,
+            puppeteerExtra: puppeteer,
+            browser: browserPptr,
+            page: page,
+            xvfbsession: xvfbsession,
+            cdpSession: cdpSession,
+            session: session,
+            setTarget: setTarget
+        })
+
         console.log("AQUI 3");
         setTarget({ status: true });
 
