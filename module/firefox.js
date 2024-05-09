@@ -102,7 +102,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             let Runtime;
             let DOM;
             let session = {browserWSEndpoint: wsString, agent: null}; // n alterar
-            if(protocol == "cdp") {
+            if(true || protocol == "cdp") {
                 cdpSession = await CDP({ port: PORT_DEBUG });
                 Network = cdpSession.Network;
                 Page = cdpSession.Page;
@@ -127,6 +127,8 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                     throw new Error(err.message)
                 })
             }
+
+            if(product == "firefox" && protocol == "webDriverBiDi") session.browserWSEndpoint = wsString;
             console.log("UAU 2");
 
             return resolve({
