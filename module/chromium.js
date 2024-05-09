@@ -86,7 +86,7 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
             });
 
             let wsString = browser.wsEndpoint();
-            let PORT_DEBUG = (protocol == "cdp") ? wsString.split(":")[2].split("/")[0] : ((wsString.indexOf("/") >= 0) ? wsString.split(":")[2].split("/")[0] : wsString.split(":")[2]);
+            let PORT_DEBUG = 9222; //= (protocol == "cdp") ? wsString.split(":")[2].split("/")[0] : ((wsString.indexOf("/") >= 0) ? wsString.split(":")[2].split("/")[0] : wsString.split(":")[2]);
 
             var cdpSession;
             let session = {browserWSEndpoint: wsString, agent: null}; // n alterar
