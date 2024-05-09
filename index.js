@@ -129,10 +129,11 @@ export const connect = ({
 
         const autoSolve = ({ page }) => {
             return new Promise(async (resolve, reject) => {
-                while (solve_status) {
+                for(let i = 0; i < 5; i++) {
                     try {
                         await sleep(1500)
                         await checkStat({ page: page }).catch(err => { })
+                        break;
                     } catch (err) { }
                 }
                 resolve()
