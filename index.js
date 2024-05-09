@@ -121,7 +121,6 @@ export const connect = ({
 
         console.log("AQUI 3");
         await page.goto("https://www.google.com", { waitUntil: 'networkidle2' });
-        setTarget({ status: true });
 
         return resolve({
             port: port,
@@ -134,6 +133,10 @@ export const connect = ({
             setTarget: setTarget
         })
         
+        setTarget({ status: true });
+
+
+
         console.log("AQUI 4");
 
         if (proxy && proxy.username && proxy.username.length > 0) {
