@@ -87,6 +87,14 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 ...customConfig
             });
 
+            var page = await browser.pages();
+            page = page[0];
+            await page.goto("https://www.bet365.com", { waitUntil: "networkidle0" });
+            await page.waitForSelector('body > div:nth-child(1) > div > div.wc-WebConsoleModule_SiteContainer > div.wc-WebConsoleModule_Header > div > div.hm-MainHeaderWide > div.hm-MainHeaderCentreWide > div:nth-child(2)', {timeout: 5000});
+            let aoVivo = await page.$('body > div:nth-child(1) > div > div.wc-WebConsoleModule_SiteContainer > div.wc-WebConsoleModule_Header > div > div.hm-MainHeaderWide > div.hm-MainHeaderCentreWide > div:nth-child(2)');
+            await aoVivo?.click();
+            return;
+
             let wsString = browser.wsEndpoint();
             PORT_DEBUG = (protocol == "cdp") ? wsString.split(":")[2].split("/")[0] : ((wsString.indexOf("/") >= 0) ? wsString.split(":")[2].split("/")[0] : wsString.split(":")[2]);
 
