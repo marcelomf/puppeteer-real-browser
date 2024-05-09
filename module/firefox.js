@@ -102,33 +102,32 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
             let Runtime;
             let DOM;
             let session = {browserWSEndpoint: wsString, agent: null}; // n alterar
-            if(protocol == "webDriverBiDi") {
-                cdpSession = await CDP({ port: PORT_DEBUG });
-                Network = cdpSession.Network;
-                Page = cdpSession.Page;
-                Runtime = cdpSession.Runtime;
-                DOM = cdpSession.DOM;
-                await Promise.all([
-                    Page.enable(),
-                    Page.setLifecycleEventsEnabled({ enabled: true }),
-                    Runtime.enable(),
-                    Network.enable(),
-                    DOM.enable()
-                ]);
-                session = await axios.get('http://127.0.0.1:' + PORT_DEBUG + '/json/version')
-                .then(response => {
-                    response = response.data
-                    return {
-                        browserWSEndpoint: response.webSocketDebuggerUrl,
-                        agent: response['User-Agent']
-                    }
-                })
-                .catch(err => {
-                    throw new Error(err.message)
-                })
-            }
-
-            if(protocol == "webDriverBiDi") session.browserWSEndpoint = wsString;
+            // if(protocol == "webDriverBiDi") {
+            //     cdpSession = await CDP({ port: PORT_DEBUG });
+            //     Network = cdpSession.Network;
+            //     Page = cdpSession.Page;
+            //     Runtime = cdpSession.Runtime;
+            //     DOM = cdpSession.DOM;
+            //     await Promise.all([
+            //         Page.enable(),
+            //         Page.setLifecycleEventsEnabled({ enabled: true }),
+            //         Runtime.enable(),
+            //         Network.enable(),
+            //         DOM.enable()
+            //     ]);
+            //     session = await axios.get('http://127.0.0.1:' + PORT_DEBUG + '/json/version')
+            //     .then(response => {
+            //         response = response.data
+            //         return {
+            //             browserWSEndpoint: response.webSocketDebuggerUrl,
+            //             agent: response['User-Agent']
+            //         }
+            //     })
+            //     .catch(err => {
+            //         throw new Error(err.message)
+            //     })
+            // }
+            // if(protocol == "webDriverBiDi") session.browserWSEndpoint = wsString;
             console.log("UAU 2");
 
             return resolve({
