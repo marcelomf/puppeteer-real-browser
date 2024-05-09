@@ -109,17 +109,15 @@ export const connect = ({
         var page = pages[0];
 
         await page.setRequestInterception(true);
-
-        await page.goto("https://www.uol.com.br");
-
         
         page.on('request', (request) => {
             request.continue();
         });
-        
+
         page.on('response', async(response) => {
         });
 
+        await page.goto("https://www.uol.com.br");
 
         console.log("AQUI 3");
         setTarget({ status: true });
