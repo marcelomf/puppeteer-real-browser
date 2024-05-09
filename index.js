@@ -174,10 +174,10 @@ export const connect = ({
             }
 
             try {
-                await newPage.setViewport({
-                    width: 1920,
-                    height: 1080
-                });
+                // await newPage.setViewport({
+                //     width: 1920,
+                //     height: 1080
+                // });
             } catch (err) {
                 // console.log(err.message);
             }
