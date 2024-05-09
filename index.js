@@ -137,7 +137,7 @@ export const connect = ({
 
         if (turnstile === true) {
             setSolveStatus({ status: true })
-            autoSolve({ page: page, browser: browserPptr })
+            await autoSolve({ page: page, browser: browserPptr })
         }
 
         await page.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");        
@@ -189,12 +189,12 @@ export const connect = ({
 
             if (newPage && fingerprint === true) {
                 try {
-                    handleNewPage({ page: newPage, config: fpconfig });
+                    await handleNewPage({ page: newPage, config: fpconfig });
                 } catch (err) { }
             }
 
             if (turnstile === true) {
-                autoSolve({ page: newPage })
+                await autoSolve({ page: newPage })
             }
         });
 
