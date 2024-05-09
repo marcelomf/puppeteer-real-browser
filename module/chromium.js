@@ -1,4 +1,4 @@
-import { launch } from 'chrome-launcher';
+import { launch } from 'puppeteer';
 import chromium from '@sparticuz/chromium'
 import CDP from 'chrome-remote-interface';
 import axios from 'axios'
