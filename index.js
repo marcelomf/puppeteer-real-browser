@@ -2,10 +2,10 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 let stealth = StealthPlugin();
 import puppeteer from 'puppeteer';
 import { addExtra } from 'puppeteer-extra'
-//let puppeteerExtra = addExtra(puppeteer);
-//stealth.enabledEvasions.delete("chrome.runtime");
-//stealth.enabledEvasions.delete("iframe.contentWindow");
-//puppeteerExtra.use(stealth);
+let puppeteerExtra = addExtra(puppeteer);
+stealth.enabledEvasions.delete("chrome.runtime");
+stealth.enabledEvasions.delete("iframe.contentWindow");
+puppeteerExtra.use(stealth);
 import * as chromium from './module/chromium.js'
 import * as firefox from './module/firefox.js'
 import { notice, sleep } from './module/general.js'
