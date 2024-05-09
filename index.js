@@ -164,34 +164,34 @@ export const connect = ({
         });
 
 
-        browserPptr.on('targetcreated', async target => {
-            var newPage = await target.page();
+        // browserPptr.on('targetcreated', async target => {
+        //     var newPage = await target.page();
 
-            try {
-                if(protocol != "webDriverBiDi") await newPage.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
-            } catch (err) {
-                // console.log(err.message);
-            }
+        //     try {
+        //         if(protocol != "webDriverBiDi") await newPage.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
+        //     } catch (err) {
+        //         // console.log(err.message);
+        //     }
 
-            try {
-                // await newPage.setViewport({
-                //     width: 1920,
-                //     height: 1080
-                // });
-            } catch (err) {
-                // console.log(err.message);
-            }
+        //     try {
+        //         // await newPage.setViewport({
+        //         //     width: 1920,
+        //         //     height: 1080
+        //         // });
+        //     } catch (err) {
+        //         // console.log(err.message);
+        //     }
 
-            if (newPage && fingerprint === true) {
-                try {
-                    await handleNewPage({ page: newPage, config: fpconfig });
-                } catch (err) { }
-            }
+        //     if (newPage && fingerprint === true) {
+        //         try {
+        //             await handleNewPage({ page: newPage, config: fpconfig });
+        //         } catch (err) { }
+        //     }
 
-            if (turnstile === true) {
-                await autoSolve({ page: newPage })
-            }
-        });
+        //     if (turnstile === true) {
+        //         await autoSolve({ page: newPage })
+        //     }
+        // });
 
         resolve({
             port: port,
