@@ -113,6 +113,13 @@ export const connect = ({
         await page.goto("https://www.uol.com.br");
 
         
+        page.on('request', (request) => {
+            request.continue();
+        });
+        
+        page.on('response', async(response) => {
+        });
+
 
         console.log("AQUI 3");
         setTarget({ status: true });
