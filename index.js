@@ -147,7 +147,20 @@ export const connect = ({
             autoSolve({ page: page, browser: browserPptr })
         }
 
+        
         await page.setUserAgent(session.agent || session.userAgent || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:127.0) Gecko/20100101 Firefox/127.0");
+
+
+        return resolve({
+            port: port,
+            puppeteerExtra: puppeteer,
+            browser: browserPptr,
+            page: page,
+            xvfbsession: xvfbsession,
+            cdpSession: cdpSession,
+            session: session,
+            setTarget: setTarget
+        })
 
         await page.setViewport({
             width: 1920,
