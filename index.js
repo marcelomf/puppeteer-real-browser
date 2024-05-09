@@ -119,8 +119,8 @@ export const connect = ({
 
         await page.goto("https://www.uol.com.br", { waitUntil: 'networkidle2' });
 
-        console.log("AQUI 3");
-        await page.goto("https://www.google.com", { waitUntil: 'networkidle2' });
+        //console.log("AQUI 3");
+        //await page.goto("https://www.google.com", { waitUntil: 'networkidle2' });
 
         return resolve({
             port: port,
@@ -132,7 +132,7 @@ export const connect = ({
             session: session,
             setTarget: setTarget
         })
-        
+
         setTarget({ status: true });
 
 
