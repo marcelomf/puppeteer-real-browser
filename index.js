@@ -154,6 +154,16 @@ export const connect = ({
             handleNewPage({ page: page, config: fpconfig });
         }
 
+        return resolve({
+            port: port,
+            puppeteerExtra: puppeteer,
+            browser: browserPptr,
+            page: page,
+            xvfbsession: xvfbsession,
+            cdpSession: cdpSession,
+            session: session,
+            setTarget: setTarget
+        })
         
 
         if (turnstile === true) {
