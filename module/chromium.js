@@ -6,6 +6,7 @@ import Xvfb from 'xvfb';
 import { notice, slugify } from './general.js'
 import chromeLocation from "chrome-location";
 
+let PORT_DEBUG;
 let browser;
 
 export const closeSession = async ({ xvfbsession, cdpSession, browser }) => {
@@ -87,10 +88,22 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
             });
 
             let wsString = browser.wsEndpoint();
-            let PORT_DEBUG = 9222; //= (protocol == "cdp") ? wsString.split(":")[2].split("/")[0] : ((wsString.indexOf("/") >= 0) ? wsString.split(":")[2].split("/")[0] : wsString.split(":")[2]);
+            PORT_DEBUG = (protocol == "cdp") ? wsString.split(":")[2].split("/")[0] : ((wsString.indexOf("/") >= 0) ? wsString.split(":")[2].split("/")[0] : wsString.split(":")[2]);
 
             var cdpSession;
             let session = {browserWSEndpoint: wsString, agent: null}; // n alterar
+            session = await axios.get('http://127.0.0.1:' + PORT_DEBUG + '/json/version')
+            .then(response => {
+                response = response.data
+                return {
+                    browserWSEndpoint: response.webSocketDebuggerUrl,
+                    agent: response['User-Agent']
+                }
+            })
+            .catch(err => {
+                throw new Error(err.message)
+            });
+            //session.browserWSEndpoint = wsString;
 
             return resolve({
                 port: PORT_DEBUG,
