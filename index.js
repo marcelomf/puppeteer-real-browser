@@ -123,6 +123,17 @@ export const connect = ({
         await page.goto("https://www.google.com", { waitUntil: 'networkidle2' });
         setTarget({ status: true });
 
+        return resolve({
+            port: port,
+            puppeteerExtra: puppeteer,
+            browser: browserPptr,
+            page: page,
+            xvfbsession: xvfbsession,
+            cdpSession: cdpSession,
+            session: session,
+            setTarget: setTarget
+        })
+        
         console.log("AQUI 4");
 
         if (proxy && proxy.username && proxy.username.length > 0) {
@@ -154,16 +165,7 @@ export const connect = ({
             handleNewPage({ page: page, config: fpconfig });
         }
 
-        return resolve({
-            port: port,
-            puppeteerExtra: puppeteer,
-            browser: browserPptr,
-            page: page,
-            xvfbsession: xvfbsession,
-            cdpSession: cdpSession,
-            session: session,
-            setTarget: setTarget
-        })
+
         
 
         if (turnstile === true) {
