@@ -74,11 +74,11 @@ export const connect = ({
         }
 
         browserPptr = await puppeteerExtra.connect({
-            browser: (product == "firefox") ? browser : null,
+            browser: browser, //(product == "firefox") ? browser : null,
             args: args,
             product: product,
             protocol: protocol,
-            browserWSEndpoint: (product == "firefox" && protocol == "cdp") ? session.browserWSEndpoint /*browser.cdpConnection.url()*/ : session.browserWSEndpoint,
+            browserWSEndpoint: session.browserWSEndpoint,
             ...connectOption
         });
 

@@ -5,6 +5,8 @@ import axios from 'axios'
 import Xvfb from 'xvfb';
 import { notice, slugify } from './general.js'
 
+let browser;
+
 export const closeSession = async ({ xvfbsession, cdpSession, browser }) => {
     if (xvfbsession) {
         try {
@@ -47,7 +49,7 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
                 headless = slugify(process.platform).includes('linux') ? true : false
             }
 
-            const chromeFlags = ['--no-sandbox','--disable-setuid-sandbox','--disable-blink-features=AutomationControlled'].concat(args);
+            let chromeFlags = ['--no-sandbox','--disable-setuid-sandbox','--disable-blink-features=AutomationControlled'].concat(args);
 
             if (headless === true) {
                 slugify(process.platform).includes('win') ? chromeFlags.push('--headless=new') : ''
@@ -72,37 +74,28 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
                 }
             }
 
-            var chrome = await launch({
-                chromePath,
-                chromeFlags,
+            browser = await launch({
+                //dumpio: true,
+                //debuggingPort: PORT_DEBUG,
+                product: "chrome",
+                protocol: protocol,
+                executablePath: chromePath,
+                headless: headless,
+                args: chromeFlags,
                 ...customConfig
             });
-            var cdpSession = await CDP({ port: chrome.port });
-            const { Network, Page, Runtime, DOM } = cdpSession;
-            await Promise.all([
-                Page.enable(),
-                Page.setLifecycleEventsEnabled({ enabled: true }),
-                Runtime.enable(),
-                Network.enable(),
-                DOM.enable()
-            ]);
 
-            var chromeSession = await axios.get('http://localhost:' + chrome.port + '/json/version')
-                .then(response => {
-                    response = response.data
-                    return {
-                        browserWSEndpoint: response.webSocketDebuggerUrl,
-                        agent: response['User-Agent']
-                    }
-                })
-                .catch(err => {
-                    throw new Error(err.message)
-                })
+            let wsString = browser.wsEndpoint();
+            let PORT_DEBUG = (protocol == "cdp") ? wsString.split(":")[2].split("/")[0] : ((wsString.indexOf("/") >= 0) ? wsString.split(":")[2].split("/")[0] : wsString.split(":")[2]);
+
+            var cdpSession;
+            let session = {browserWSEndpoint: wsString, agent: null}; // n alterar
+
             return resolve({
-                port: chrome.port,
-                session: chromeSession,
+                port: PORT_DEBUG,
+                session: session,
                 cdpSession: cdpSession,
-                browser: chrome,
+                browser: browser,
                 xvfbsession: xvfbsession
             })
 

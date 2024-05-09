@@ -50,7 +50,7 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 headless = slugify(process.platform).includes('linux') ? true : false
             }
 
-            const browserFlags = args; //['--remote-debugging-port '+PORT_DEBUG].concat(args);
+            let browserFlags = args; //['--remote-debugging-port '+PORT_DEBUG].concat(args);
 
             if (headless === true) browserFlags.push('-headless');
 
@@ -86,8 +86,6 @@ export const startSession = ({ protocol = "cdp", args = [], headless = 'auto', c
                 args: browserFlags,
                 ...customConfig
             });
-
-
 
             let wsString = browser.wsEndpoint();
             PORT_DEBUG = (protocol == "cdp") ? wsString.split(":")[2].split("/")[0] : ((wsString.indexOf("/") >= 0) ? wsString.split(":")[2].split("/")[0] : wsString.split(":")[2]);
