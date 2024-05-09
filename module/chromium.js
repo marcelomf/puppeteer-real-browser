@@ -4,6 +4,7 @@ import CDP from 'chrome-remote-interface';
 import axios from 'axios'
 import Xvfb from 'xvfb';
 import { notice, slugify } from './general.js'
+import chromeLocation from "chrome-location";
 
 let browser;
 
@@ -31,7 +32,7 @@ export const startSession = ({protocol = "cdp", args = [], headless = 'auto', cu
     return new Promise(async (resolve, reject) => {
         try {
             var xvfbsession = null
-            var chromePath = customConfig.executablePath || customConfig.chromePath; // || chromium.path;
+            var chromePath = customConfig.executablePath || customConfig.chromePath || chromeLocation; // || chromium.path;
 
             if (slugify(process.platform).includes('linux') && headless === false) {
                 notice({

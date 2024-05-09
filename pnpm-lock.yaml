@@ -17,6 +17,9 @@ importers:
       chrome-launcher:
         specifier: ^1.1.0
         version: 1.1.1
+      chrome-location:
+        specifier: ^1.2.1
+        version: 1.2.1
       chrome-remote-interface:
         specifier: ^0.33.0
         version: 0.33.0
@@ -27,17 +30,17 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2
       puppeteer:
-        specifier: ^22.8.0
-        version: 22.8.0
+        specifier: github:marcelomf/puppeteer-prod
+        version: https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f
       puppeteer-afp:
         specifier: github:zfcsoftware/puppeteer-afp#ad935f4dd28ad667ec719f7e7b53823391285d89
         version: https://codeload.github.com/zfcsoftware/puppeteer-afp/tar.gz/ad935f4dd28ad667ec719f7e7b53823391285d89
       puppeteer-extra:
         specifier: github:marcelomf/puppeteer-extra
-        version: https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0)
+        version: https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f)
       puppeteer-extra-plugin-stealth:
         specifier: ^2.11.2
-        version: 2.11.2(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0))
+        version: 2.11.2(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f))
       xvfb:
         specifier: ^0.4.0
         version: 0.4.0
@@ -58,6 +61,12 @@ packages:
 
   '@puppeteer/browsers@2.2.3':
     resolution: {integrity: sha512-bJ0UBsk0ESOs6RFcLXOt99a3yTDcOKlzfjad+rhFwdaG1Lu/Wzq58GHYCDTlZ9z6mldf4g+NTb+TXEfe0PpnsQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  '@puppeteer/browsers@https://codeload.github.com/marcelomf/puppeteer-browsers/tar.gz/7149003e7109e46e6a913cc2c4253a01b4771fad':
+    resolution: {tarball: https://codeload.github.com/marcelomf/puppeteer-browsers/tar.gz/7149003e7109e46e6a913cc2c4253a01b4771fad}
+    version: 2.2.8
     engines: {node: '>=18'}
     hasBin: true
 
@@ -161,6 +170,10 @@ packages:
   chrome-launcher@1.1.1:
     resolution: {integrity: sha512-OAQgBmpUzrIuShApIwOpjt7WFripGKcDMW/qeYU+kcl6jBPg87mRG+N2C3Vu+VeCVPqZ/ds3GfI2TK7tpz3Yyw==}
     engines: {node: '>=12.13.0'}
+    hasBin: true
+
+  chrome-location@1.2.1:
+    resolution: {integrity: sha512-NPuxEKQ43JlEPjHsgU6HWk4ViLCWf4mlo3dz5s5syPSsq2AaekXnK6qTRwMmXhpTYXAVi4g5ncVnAbD9naz5fw==}
     hasBin: true
 
   chrome-remote-interface@0.33.0:
@@ -601,6 +614,11 @@ packages:
     resolution: {integrity: sha512-S5bWx3g/fNuyFxjZX9TkZMN07CEH47+9Zm6IiTl1QfqI9pnVaShbwrD9kRe5vmz/XPp/jLGhhxRUj1sY4wObnA==}
     engines: {node: '>=18'}
 
+  puppeteer-core@https://codeload.github.com/marcelomf/puppeteer-core/tar.gz/41ce26ce132ad90f4248e3e90df7aff571ea0027:
+    resolution: {tarball: https://codeload.github.com/marcelomf/puppeteer-core/tar.gz/41ce26ce132ad90f4248e3e90df7aff571ea0027}
+    version: 22.8.32
+    engines: {node: '>=18'}
+
   puppeteer-extra-plugin-stealth@2.11.2:
     resolution: {integrity: sha512-bUemM5XmTj9i2ZerBzsk2AN5is0wHMNE6K0hXBzBXOzP5m5G3Wl0RHhiqKeHToe/uIH8AoZiGhc1tCkLZQPKTQ==}
     version: 2.11.2
@@ -669,8 +687,9 @@ packages:
       puppeteer-core:
         optional: true
 
-  puppeteer@22.8.0:
-    resolution: {integrity: sha512-Z616wyTr0d7KpxmfcBG22rAkzuo/xzHJ3ycpu4KiJ3dZNHn/C1CpqcCwPlpiIIsmPojTAfWjo6EMR7M+AaC0Ww==}
+  puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f:
+    resolution: {tarball: https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f}
+    version: 22.8.5
     engines: {node: '>=18'}
     hasBin: true
 
@@ -861,6 +880,20 @@ snapshots:
       yargs: 17.7.2
     transitivePeerDependencies:
       - supports-color
+    optional: true
+
+  '@puppeteer/browsers@https://codeload.github.com/marcelomf/puppeteer-browsers/tar.gz/7149003e7109e46e6a913cc2c4253a01b4771fad':
+    dependencies:
+      debug: 4.3.4
+      extract-zip: 2.0.1
+      progress: 2.0.3
+      proxy-agent: 6.4.0
+      semver: 7.6.0
+      tar-fs: 3.0.6
+      unbzip2-stream: 1.4.3
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - supports-color
 
   '@sparticuz/chromium@119.0.2':
     dependencies:
@@ -979,6 +1012,11 @@ snapshots:
       lighthouse-logger: 2.0.1
     transitivePeerDependencies:
       - supports-color
+
+  chrome-location@1.2.1:
+    dependencies:
+      userhome: 1.0.0
+      which: 1.3.1
 
   chrome-remote-interface@0.33.0:
     dependencies:
@@ -1448,66 +1486,79 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
+    optional: true
 
-  puppeteer-extra-plugin-stealth@2.11.2(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0)):
+  puppeteer-core@https://codeload.github.com/marcelomf/puppeteer-core/tar.gz/41ce26ce132ad90f4248e3e90df7aff571ea0027:
+    dependencies:
+      '@puppeteer/browsers': https://codeload.github.com/marcelomf/puppeteer-browsers/tar.gz/7149003e7109e46e6a913cc2c4253a01b4771fad
+      chromium-bidi: 0.5.19(devtools-protocol@0.0.1273771)
+      debug: 4.3.4
+      devtools-protocol: 0.0.1273771
+      ws: 8.17.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
+  puppeteer-extra-plugin-stealth@2.11.2(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f)):
     dependencies:
       debug: 4.3.4
-      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0))
-      puppeteer-extra-plugin-user-preferences: 2.4.1(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0))
+      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f))
+      puppeteer-extra-plugin-user-preferences: 2.4.1(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f))
     optionalDependencies:
-      puppeteer-extra: https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0)
+      puppeteer-extra: https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f)
     transitivePeerDependencies:
       - supports-color
 
-  puppeteer-extra-plugin-user-data-dir@2.4.1(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0)):
+  puppeteer-extra-plugin-user-data-dir@2.4.1(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f)):
     dependencies:
       debug: 4.3.4
       fs-extra: 10.1.0
-      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0))
+      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f))
       rimraf: 3.0.2
     optionalDependencies:
-      puppeteer-extra: https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0)
+      puppeteer-extra: https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f)
     transitivePeerDependencies:
       - supports-color
 
-  puppeteer-extra-plugin-user-preferences@2.4.1(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0)):
+  puppeteer-extra-plugin-user-preferences@2.4.1(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f)):
     dependencies:
       debug: 4.3.4
       deepmerge: 4.3.1
-      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0))
-      puppeteer-extra-plugin-user-data-dir: 2.4.1(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0))
+      puppeteer-extra-plugin: 3.2.3(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f))
+      puppeteer-extra-plugin-user-data-dir: 2.4.1(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f))
     optionalDependencies:
-      puppeteer-extra: https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0)
+      puppeteer-extra: https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f)
     transitivePeerDependencies:
       - supports-color
 
-  puppeteer-extra-plugin@3.2.3(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0)):
+  puppeteer-extra-plugin@3.2.3(puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f)):
     dependencies:
       '@types/debug': 4.1.12
       debug: 4.3.4
       merge-deep: 3.0.3
     optionalDependencies:
-      puppeteer-extra: https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0)
+      puppeteer-extra: https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f)
     transitivePeerDependencies:
       - supports-color
 
-  puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@22.8.0):
+  puppeteer-extra@https://codeload.github.com/marcelomf/puppeteer-extra/tar.gz/4a5e0df30dd375c91e11144265738c922f3f3c0d(puppeteer-core@22.8.0)(puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f):
     dependencies:
       '@types/debug': 4.1.12
       debug: 4.3.4
       deepmerge: 4.3.1
     optionalDependencies:
-      puppeteer: 22.8.0
+      puppeteer: https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f
       puppeteer-core: 22.8.0
     transitivePeerDependencies:
       - supports-color
 
-  puppeteer@22.8.0:
+  puppeteer@https://codeload.github.com/marcelomf/puppeteer-prod/tar.gz/c91ca55d00b43b539e9554c8f1ef95d98061ed0f:
     dependencies:
-      '@puppeteer/browsers': 2.2.3
+      '@puppeteer/browsers': https://codeload.github.com/marcelomf/puppeteer-browsers/tar.gz/7149003e7109e46e6a913cc2c4253a01b4771fad
       cosmiconfig: 9.0.0
       devtools-protocol: 0.0.1273771
-      puppeteer-core: 22.8.0
+      puppeteer-core: https://codeload.github.com/marcelomf/puppeteer-core/tar.gz/41ce26ce132ad90f4248e3e90df7aff571ea0027
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -1588,6 +1639,7 @@ snapshots:
     optionalDependencies:
       bare-fs: 2.3.0
       bare-path: 2.1.2
+    optional: true
 
   tar-fs@3.0.6:
     dependencies:
